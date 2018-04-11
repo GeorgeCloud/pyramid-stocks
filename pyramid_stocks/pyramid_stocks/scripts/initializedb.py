@@ -2,6 +2,7 @@ import os
 import sys
 import transaction
 
+
 from pyramid.paster import (
     get_appsettings,
     setup_logging,
@@ -16,6 +17,7 @@ from ..models import (
     get_tm_session,
     )
 from ..models import Stock
+from ..models.account import Account
 from ..sample_data import STOCK_DATA
 
 
@@ -42,6 +44,6 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
+        # **stock is values in dict
         for stock in STOCK_DATA:
-            # **stock is values in dict
             dbsession.add(Stock(**stock))

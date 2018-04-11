@@ -1,13 +1,14 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-  <form action="{{request.route_url('stock')}}" method="GET">
+  <form action="{{request.route_url('add-stock')}}" method="GET">
     <input type="text" name="symbol">
     <input type="submit" value="search">
   </form>
 
 {% if company %}
-  <form class="add-form" method="POST" action="{{request.route_url('stock')}}">
+  <form class="add-form" method="POST" action="{{request.route_url('add-stock')}}">
+    <input type="hidden" name="csrf_token" value="{{request.session.get_csrf_token()}}">
     <input type='text' name='symbol' value="{{company.symbol}}" readonly hidden>
     <fieldset>
       <legend>Symbol: {{company.symbol}}</legend>
