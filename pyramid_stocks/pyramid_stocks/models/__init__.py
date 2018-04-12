@@ -7,6 +7,7 @@ import zope.sqlalchemy
 # Base.metadata prior to any initialization routines
 from .stock import Stock
 from .account import Account
+from .joint import association_table
 
 
 # run configure_mappers after defining all of the models to ensure

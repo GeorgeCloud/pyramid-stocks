@@ -1,10 +1,11 @@
 from .meta import Base
 from datetime import datetime as dt
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm import relationship
+from .joint import association_table
 from cryptacular import bcrypt
 from sqlalchemy import (
     Column,
-    Index,
     Integer,
     Text,
     DateTime,
@@ -15,13 +16,17 @@ manager = bcrypt.BCRYPTPasswordManager()
 
 
 class Account(Base):
-    __tablename__ = 'account'
-    id = Column(Integer, primary_key=True)
+    __tablename__ = 'accounts'
+    id = Column(Integer, primary_key=True, autoincrement=True)
     password = Column(Text)
     email = Column(Text)
     username = Column(Text)
     registered_on = Column(DateTime, nullable=False)
     admin = Column(Boolean, nullable=False, default=False)
+    stocks = relationship(
+        "Stock",
+        secondary=association_table,
+        back_populates="accounts")
 
     def __init__(self, email, username, password, admin=False):
         self.email = email
@@ -40,7 +45,6 @@ class Account(Base):
         if query is not None:
             if manager.check(query.password, password):
                 is_authenticated = True
-
         return (is_authenticated, username)
 
 

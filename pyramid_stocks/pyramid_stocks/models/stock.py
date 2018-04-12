@@ -1,11 +1,13 @@
+from sqlalchemy.orm import relationship
+from .joint import association_table
+from .meta import Base
+
 from sqlalchemy import (
+    Index,
     Column,
     Integer,
     Text,
-    DateTime,
 )
-
-from .meta import Base
 
 
 class Stock(Base):
@@ -20,5 +22,11 @@ class Stock(Base):
     CEO = Column(Text)
     issueType = Column(Text)
     sector = Column(Text)
+    accounts = relationship(
+        'Account',
+        secondary=association_table,
+        back_populates='stocks'
+    )
 
-# Index('symbol_index',)
+
+Index('symbol_index', Stock.symbol, unique=True, mysql_length=255)

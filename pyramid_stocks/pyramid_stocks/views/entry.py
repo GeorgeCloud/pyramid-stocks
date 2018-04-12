@@ -5,7 +5,6 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 from pyramid.httpexceptions import (
     HTTPFound, HTTPClientError, HTTPServiceUnavailable)
 import requests
-from ..sample_data import STOCK_DATA
 from ..models import Stock
 from . import DB_ERR_MSG
 import os
@@ -39,16 +38,17 @@ def stock_view(request):
         if response.status_code == 200:
             try:
                 query = request.dbsession.query(Stock)
-                all_entries = query.filter(Stock.symbol == symbol).one_or_none()
+                all_entries = query.filter(
+                    Stock.symbol == symbol).one_or_none()
                 if all_entries is None:
                     request.dbsession.add(Stock(**response.json()))
-
                 else:
                     return {}
             except DBAPIError:
-                return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
+                return DBAPIError(
+                    DB_ERR_MSG, content_type='text/plain', status=500)
 
-        return HTTPNotFound()
+        return {}
 
 
 @view_config(
@@ -61,10 +61,20 @@ def get_portfolio(request):
             query = request.dbsession.query(Stock)
             all_entries = query.all()
         except DBAPIError:
-            return DBAPIError(DB_ERR_MSG, content_type='text/plain', status=500)
+            return DBAPIError(
+                DB_ERR_MSG, content_type='text/plain', status=500)
         return {
             'stocks': all_entries
         }
+        # try:
+        #     query = request.dbsession.query(Stock)
+        #     all_entries = query.filter(Stock.account_id == request.authenticated_userid)
+        # except DBAPIError:
+        #     return DBAPIError(
+        #         DB_ERR_MSG, content_type='text/plain', status=500)
+        # return {
+        #     'stocks': all_entries
+        # }
 
 
 @view_config(
