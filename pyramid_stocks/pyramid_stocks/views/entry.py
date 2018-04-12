@@ -7,7 +7,6 @@ from pyramid.httpexceptions import (
 import requests
 from ..models import Stock
 from . import DB_ERR_MSG
-import os
 
 
 # API_KEY = os.environ.get('API_KEY', '')
@@ -66,15 +65,6 @@ def get_portfolio(request):
         return {
             'stocks': all_entries
         }
-        # try:
-        #     query = request.dbsession.query(Stock)
-        #     all_entries = query.filter(Stock.account_id == request.authenticated_userid)
-        # except DBAPIError:
-        #     return DBAPIError(
-        #         DB_ERR_MSG, content_type='text/plain', status=500)
-        # return {
-        #     'stocks': all_entries
-        # }
 
 
 @view_config(
