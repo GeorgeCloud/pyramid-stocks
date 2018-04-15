@@ -28,7 +28,7 @@ def auth_view(request):
         headers = remember(request, userid=instance.username)
     if request.method == 'GET':
         try:
-            username = request.GET['user']
+            username = request.GET['username']
             password = request.GET['password']
         except KeyError:
             return {}

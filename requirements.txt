@@ -1,3 +1,4 @@
+arrow==0.12.1
 attrs==17.4.0
 bcrypt==3.1.4
 beautifulsoup4==4.6.0

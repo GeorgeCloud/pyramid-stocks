@@ -20,7 +20,7 @@ class Account(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     password = Column(Text)
     email = Column(Text)
-    username = Column(Text)
+    username = Column(Text, unique=True)
     registered_on = Column(DateTime, nullable=False)
     admin = Column(Boolean, nullable=False, default=False)
     stocks = relationship(
