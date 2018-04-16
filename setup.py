@@ -3,18 +3,21 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
+with open(os.path.join(here, 'README.md')) as f:
     README = f.read()
 with open(os.path.join(here, 'CHANGES.txt')) as f:
     CHANGES = f.read()
 
 requires = [
+    'cryptacular',
     'plaster_pastedeploy',
+    'psycopg2-binary',
     'pyramid >= 1.9a',
     'pyramid_debugtoolbar',
     'pyramid_jinja2',
     'pyramid_retry',
     'pyramid_tm',
+    'requests',
     'SQLAlchemy',
     'transaction',
     'zope.sqlalchemy',
@@ -40,7 +43,7 @@ setup(
     ],
     author='George Ceja',
     author_email='mlgkiirb@gmail.com',
-    url='https://github.com/GeorgeCloud/',
+    url='https://github.com/GeorgeCloud/pyramid_stocks',
     keywords='web pyramid pylons',
     packages=find_packages(),
     include_package_data=True,

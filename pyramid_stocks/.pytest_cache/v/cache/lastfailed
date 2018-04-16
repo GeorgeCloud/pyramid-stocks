@@ -1,0 +1,10 @@
+{
+  "pyramid_stocks/tests/test_model_entry.py::test_constructed_entry_with_correct_date_added_to_database": true,
+  "pyramid_stocks/tests/test_model_entry.py::test_constructed_entry_with_date_added_to_database": true,
+  "pyramid_stocks/tests/test_model_entry.py::test_constructed_entry_with_no_date_added_to_database": true,
+  "pyramid_stocks/tests/test_model_entry.py::test_entry_with_no_title_throws_error": true,
+  "pyramid_stocks/tests/test_stock_model.py::test_constructed_entry_with_correct_date_added_to_database": true,
+  "pyramid_stocks/tests/test_stock_model.py::test_constructed_entry_with_date_added_to_database": true,
+  "pyramid_stocks/tests/test_stock_model.py::test_constructed_entry_with_no_date_added_to_database": true,
+  "pyramid_stocks/tests/test_stock_model.py::test_entry_with_no_title_throws_error": true
+}

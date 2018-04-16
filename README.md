@@ -13,3 +13,4 @@ Stock Portfolio
 - Run your project's tests.
 
 - pserve development.ini
+
