@@ -6,6 +6,11 @@ from pyramid_stocks.models import Account
 
 
 @pytest.fixture
+def dummy_request():
+    return testing.DummyRequest(method="POST", status_code=200)
+
+
+@pytest.fixture
 def dummy_stock():
     return Stock(
         symbol='CRM',
@@ -23,7 +28,7 @@ def dummy_stock():
 @pytest.fixture
 def configuration(request):
     config = testing.setUp(settings={
-        'sqlalchemy.url = postgres://localhost:5432/entries_prod'
+        'sqlalchemy.url': 'postgres://localhost:5432/entries_dev'
     })
     config.include('pyramid_stocks.models')
     config.include('pyramid_stocks.routes')
@@ -33,16 +38,19 @@ def configuration(request):
 
 @pytest.fixture
 def db_session(configuration, request):
-    """
-    Create DB Sesssion.
-    """
+    """Create DB Sesssion."""
     SessionFactory = configuration.registry['dbsession_factory']
     session = SessionFactory()
     engine = session.bind
     Base.metadata.create_all(engine)
-    yield session
-    session.transaction.rollback()
-    Base.metadata.drop_all(engine)
+    # yield session
+
+    def teardown():
+        session.transaction.rollback()
+        Base.metadata.drop_all(engine)
+
+    request.addfinalizer(teardown)
+    return session
 
 
 @pytest.fixture

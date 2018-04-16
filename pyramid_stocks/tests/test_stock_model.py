@@ -1,57 +1,48 @@
 from pyramid_stocks.models import Stock
+from ..models import Stock
+import pytest
 
 
-def test_constructed_entry_with_correct_date_added_to_database(db_session):
-    from ..models import Entry
-
-    assert len(db_session.query(Entry).all()) == 0
-    entry = Entry(
-        symbol='test 1',
-        description='this is a test',
-        website='me and myself',
-        CEO=datetime(2017, 10, 12, 1, 30)
+def test_constructed_entry_with_correct_data_added_to_database(db_session):
+    assert len(db_session.query(Stock).all()) == 0
+    stock = Stock(
+        symbol='CRM',
+        description='software company',
+        website='crm.com',
+        CEO='Marc'
     )
-    db_session.add(entry)
-    assert len(db_session.query(Entry).all()) == 1
+    db_session.add(stock)
+    assert len(db_session.query(Stock).all()) == 1
 
 
-def test_constructed_entry_with_no_date_added_to_database(db_session):
-    from ..models import Entry
-
-    assert len(db_session.query(Entry).all()) == 0
-    entry = Entry(
-        symbol='test 1',
+def test_constructed_entry_with_no_website_added_to_database(db_session):
+    assert len(db_session.query(Stock).all()) == 0
+    stock = Stock(
+        symbol='pi',
         description='this is a test'
     )
-    db_session.add(entry)
-    assert len(db_session.query(Entry).all()) == 1
+    db_session.add(stock)
+    assert len(db_session.query(Stock).all()) == 1
 
 
-def test_constructed_entry_with_date_added_to_database(db_session):
-    from ..models import Entry
-
-    assert len(db_session.query(Entry).all()) == 0
-    entry = Entry(
-        symbol='test 1',
-        description='this is a test',
-        CEO=datetime(2017, 10, 12, 1, 30)
+def test_constructed_entry_with_no_description_to_database(db_session):
+    assert len(db_session.query(Stock).all()) == 0
+    stock = Stock(
+        symbol='X',
+        description='Owner of all barns through the bubblegum palace..',
+        CEO='barn'
     )
-    db_session.add(entry)
-    assert len(db_session.query(Entry).all()) == 1
+    db_session.add(stock)
+    assert len(db_session.query(Stock).all()) == 1
 
 
-def test_entry_with_no_title_throws_error(db_session):
-    from ..models import Entry
-    import pytest
-    from sqlalchemy.exc import IntegrityError
-
-    assert len(db_session.query(Entry).all()) == 0
-    entry = Entry(
-        description='test 1',
-        author='me and myself',
-        CEO=datetime(2017, 10, 12, 1, 30)
+def test_assertion_error(db_session):
+    assert len(db_session.query(Stock).all()) == 0
+    stock = Stock(
+        symbol='msft',
+        description='me and myself',
+        CEO='johnny'
     )
-    with pytest.raises(IntegrityError):
-        db_session.add(entry)
-
-        assert db_session.query(Entry).one_or_none() is None
+    with pytest.raises(AssertionError):
+        db_session.add(stock)
+        assert db_session.query(Stock).one_or_none() is None
