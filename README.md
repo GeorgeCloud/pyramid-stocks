@@ -1,3 +1,17 @@
+# Personal Project
+This project demonstrates the usage of pyramid_web assets library for managing the static assets of your Python web application.
+
+#Usage
+Clone the repository
+
+Run the following:
+
+cd pyramid_stocks
+
+. env/bin/start
+
+pserve development.ini
+
 Stock Portfolio
 
 --Getting Started--

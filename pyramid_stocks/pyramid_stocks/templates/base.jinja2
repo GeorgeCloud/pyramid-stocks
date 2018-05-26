@@ -7,24 +7,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="../static/base.css">
   <link rel="stylesheet" type="text/css" href="../static/layout.css">
-  <!-- <link rel="stylesheet" href="../static/skeleton.css"> -->
   <title>Document</title>
 </head>
 <body>
   <header>
     <nav>
       <ul>
-        <li><a href="/auth">Auth</a></li>
-        <li><a href="{{request.route_url('stock')}}">Stocks</a></li>
-        <li><a href="/account">New</a></li>
+        <li><a href="/">HOME</a></li>
+        {% if request.authenticated_userid %}
+        <li><a href="{{request.route_url('portfolio')}}">Portfolio</a></li>
+        <li><a href="{{request.route_url('add-stock')}}">Add Stocks</a></li>
+        <li><a href="{{request.route_url('logout')}}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{{request.route_url('auth')}}">Authentication</a></li>
+        {% endif %}
       </ul>
     </nav>
   </header>
   <main>
-    <h4>This is on all pages.</h4>
-
     {% block content %}
-    <p>No content</p>
+      <center>
+        <p>No content</p>
+      </center>
     {% endblock content %}
 
   </main>
