@@ -1,9 +1,5 @@
-This project demonstrates the usage of pyramid_webassets library for managing the static assets of your Python web application.
-There are following technologies used in this basic Pyramid application:
-
-
-
-jinja2 templating language
+# Personal Project
+This project demonstrates the usage of pyramid_web assets library for managing the static assets of your Python web application.
 
 #Usage
 Clone the repository
@@ -16,4 +12,18 @@ cd pyramid_stocks
 
 pserve development.ini
 
+Stock Portfolio
 
+--Getting Started--
+
+- git clone https://github.com/GeorgeCloud/pyramid-stocks.git
+
+- cd pyradmid_stocks
+
+- pip install -e .[testing]
+
+- Configure the database.
+
+- Run your project's tests.
+
+- pserve development.ini
