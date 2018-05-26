@@ -15,7 +15,8 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-from ..models import MyModel
+from ..models import Stock
+from ..sample_data import STOCK_DATA
 
 
 def usage(argv):
@@ -41,5 +42,6 @@ def main(argv=sys.argv):
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
 
-        model = MyModel(name='one', value=1)
-        dbsession.add(model)
+        for stock in STOCK_DATA:
+            # **stock is values in dict
+            dbsession.add(Stock(**stock))
